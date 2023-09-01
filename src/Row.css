@@ -1,0 +1,20 @@
+.posters{
+    width: 100%;
+    object-fit: contain;
+    max-height: 120px;
+    margin-right: 10px;
+}
+.posters:hover{
+    transform: scale(1.1);
+    transition: 300ms;
+    box-shadow: 10px black;
+}
+.postersEachRow{
+    display: flex;
+    overflow-y: hidden;
+    overflow-x:scroll;
+    padding: 10px;
+}
+.postersEachRow::-webkit-scrollbar{
+    display: none;
+}

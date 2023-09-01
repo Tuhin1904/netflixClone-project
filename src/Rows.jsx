@@ -1,12 +1,20 @@
 import React,{useState,useEffect} from 'react'
 import axiosValue from './axios';
+import './Row.css'
 
 function Rows({title,fetchURL}) {
   // console.log(typeof title[1])
   // console.log(title)
   // console.log(eachMovie.backdrop_path)
   // console.log(eachMovie.original_title)
-const start_URL="https://image.tmdb.org/t/p/w500";
+
+  // {
+  //   movies.map(i=>(
+  //    <img className='posters' src={`${start_URL}${i.poster_path}`} alt={i.original_title} />
+  //   ))
+  // }
+
+const start_URL="https://image.tmdb.org/t/p/w780"; 
 
   const [movies,setMovies]=useState([])
 
@@ -26,14 +34,17 @@ const start_URL="https://image.tmdb.org/t/p/w500";
   },[fetchURL]);
 
   // console.log("Log Output",movies)
+        // console.log(eachMovie.id)
 
   return (
     <div className='rows'>
       <h1>{title}</h1>
       <div className='postersEachRow'>
         {movies.map(eachMovie => {
-        return <img src={`${start_URL}${eachMovie.poster_path}`} alt={eachMovie.original_title} />
+        return <img key={eachMovie.id} 
+        className='posters' src={`${start_URL}${eachMovie.poster_path}`} alt={eachMovie.original_title} />
         })}
+                
       </div>
     </div>
   );
