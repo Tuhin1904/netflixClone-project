@@ -32,7 +32,8 @@ function Banner() {
 
 
         <div className='banner_content' style={{marginLeft:'1rem'}}>
-                <h1 style={{fontWeight:'900',paddingBottom:'0.3rem'}}>{movie?.original_title}</h1>
+                <h1 style={{fontWeight:'900',paddingBottom:'0.3rem',
+                paddingTop:'0.5rem',marginTop:'2.5rem'}}>{movie?.original_title}</h1>
                 <button className='btn' 
                 >Watch Now</button>
         

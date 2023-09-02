@@ -1,6 +1,9 @@
 .rows{
     margin: 10px;
 }
+.rows h1{
+    color: white;
+}
 .posters{
     width: 100%;
     object-fit: contain;
@@ -16,7 +19,7 @@
 .posters:hover{
     transform: scale(1.08);
     transition: 300ms;
-    box-shadow: 10px black;
+    /* box-shadow: 10px black; */
 }
 .postersEachRow{
     display: flex;
@@ -27,3 +30,4 @@
 .postersEachRow::-webkit-scrollbar{
     display: none;
 }
+
