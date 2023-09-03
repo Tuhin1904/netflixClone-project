@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import axiosValue from './axios';
 import './Row.css'
+import Youtube from 'react-youtube'
+import movieTrailer from 'movie-trailer';
 
 function Rows({title,fetchURL,isLargeRow}) {
   // console.log(typeof title[1])
@@ -17,6 +19,7 @@ function Rows({title,fetchURL,isLargeRow}) {
 const start_URL="https://image.tmdb.org/t/p/original"; 
 
   const [movies,setMovies]=useState([])
+  const [trailerURL, setTrailerURL]= useState("")
 
   useEffect(()=>{
     async function fetchData(){
@@ -36,18 +39,51 @@ const start_URL="https://image.tmdb.org/t/p/original";
   // console.log("Log Output",movies)
         // console.log(eachMovie.id)
 
+  const options={
+    width:'100%',
+    height:'30rem'
+  }
+
+  
+    // new URL() takes string url is parameter
+    // breaks down the url in different parts
+    //.search part get the parts after question mark in the link
+    // https://www.youtube.com/watch?v=XtMThy8QKqU&t=10338s, that is 'v=Xt...8s'
+    // if there are multiple parameters after ? , like here we have v= and t= , 
+    // so new URLSearchParams will allow to access each of the parameter my passing  v or t in arguments
+    // like by urlParams.get('v') to get v value of v
+  const handleClick=(eachMovie)=>{
+    if(trailerURL){
+      setTrailerURL('');
+    }else{
+      movieTrailer(eachMovie?.title || "")
+      .then((url)=>{
+          const urlParams= new URLSearchParams(new URL(url).search);
+          setTrailerURL(urlParams.get('v'))
+      }).catch(err => console.log("Error caught: ",err))
+    }
+  }
+  // console.log(eachMovie.title)
   return (
-    <div className='rows'>
+    <div className='rows'>  
       <h1>{title}</h1>
       <div className='postersEachRow'>
-        {movies.map(eachMovie => {
+        {movies.map(eachMovie => { 
+          
         return <img key={eachMovie.id} 
+        onClick={()=> handleClick(eachMovie)}
         className= {`posters ${isLargeRow && `postersLarge`}`} src={`${start_URL}${isLargeRow? eachMovie.poster_path:eachMovie.backdrop_path}`} alt={eachMovie.original_title} />
         })}
                 
       </div>
+      <div style={{alignItems:'center',justifyContent:'center',display:'flex'}}>
+
+        {trailerURL && <Youtube videoId={trailerURL} opt={options}/>}
+
+      </div>
     </div>
   );
+  // videoId is the id of each video, opt takes  properties in object format like innerHeight, width of embedded video
 }
 
 export default Rows
